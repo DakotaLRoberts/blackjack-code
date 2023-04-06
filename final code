@@ -1,0 +1,917 @@
+#include <iostream>
+#include <string>
+#include <time.h>
+#include <cstdlib>
+#include <fstream>
+#include <iomanip>
+
+
+using namespace std;
+
+int main() {
+    ofstream fileout;
+    ifstream fin;
+    string again;
+    int choice;
+    string hitorstay;
+    int card1, card2, card3, bet, dealer1, dealer2, dealer3;
+    int balance = 0;
+    int falseace = 11;
+    int dealercount = 0;
+    int cardcount = 0;
+    int fakecardcount = 0;
+    int fakedealercount = 0;
+    int winnings;
+    int badbet = 0;
+    int error = 0;
+    string cardface1;
+    string cardface2;
+    string cardface3;
+    string dealerface1;
+    string dealerface2;
+    string dealerface3;
+    string wl;
+    string history;
+    string playgame = "yes";
+    while (playgame == "yes") {
+        cout << "Menu\n";
+        cout << "(1) Play blackjack\n";
+        cout << "(2) View game history\n";
+        cout << "(3) Quit game\n";
+        cin >> choice;
+        if (choice == 1)
+
+
+
+        {
+            cout << "what is your starting balance" << endl;
+            cin >> balance;
+            while (balance < 0) {
+                cout << "Please enter a postive number" << endl;
+                cout << "what is your starting balance" << endl;
+                cin >> balance;
+            }
+
+            do {
+                fileout.open("RobertsHistory.txt");
+
+                cout << "You have chosen to play blackjack.\n";
+
+
+                badbet = 0;
+                cout << "Enter your bet: ";
+
+                cin >> bet;
+
+                if (bet >= 10 && bet <= 150 && bet <= balance) {
+                    badbet = 1;
+                }
+                else {
+                    do {
+
+                        cout << "Please enter a bet between 10 and 150, and that is not greater than your current balance" << endl;
+                        cin >> bet;
+                        if (bet >= 10 && bet <= 150 && bet <= balance) {
+                            badbet = 1;
+                        }
+                    } while (badbet == 0);
+                }
+
+                balance = balance - bet;
+
+
+
+
+
+
+
+                srand(time(NULL));
+                card1 = rand() % 13 + 1;
+
+                card2 = rand() % 13 + 1;
+
+                card3 = rand() % 13 + 1;
+
+                dealer1 = rand() % 13 + 1;
+
+                dealer2 = rand() % 13 + 1;
+
+                dealer3 = rand() % 13 + 1;
+
+                if (dealer1 == 11) {
+                    dealer1 = 10;
+                    dealerface1 = "J";
+                }
+                else if (dealer1 == 12) {
+                    dealer1 = 10;
+                    dealerface1 = "Q";
+                }
+                else if (dealer1 == 13) {
+                    dealer1 = 10;
+                    dealerface1 = "K";
+                }
+                else if (dealer1 == 14) {
+                    dealerface1 = "A";
+                    fakedealercount = dealercount + falseace;
+                    if (fakedealercount <= 21) {
+                        dealer1 = 11;
+                    }
+                    else {
+                        dealer1 = 1;
+                    }
+
+                }
+                else if (dealer1 == 1) {
+                    dealer1 = 1;
+                    dealerface1 = "1";
+                }
+                else if (dealer1 == 2) {
+                    dealer1 = 2;
+                    dealerface1 = "2";
+                }
+                else if (dealer1 == 3) {
+                    dealer1 = 3;
+                    dealerface1 = "3";
+                }
+                else if (dealer1 == 4) {
+                    dealer1 = 4;
+                    dealerface1 = "4";
+                }
+                else if (dealer1 == 5) {
+                    dealer1 = 5;
+                    dealerface1 = "5";
+                }
+                else if (dealer1 == 6) {
+                    dealer1 = 6;
+                    dealerface1 = "6";
+                }
+                else if (dealer1 == 7) {
+                    dealer1 = 7;
+                    dealerface1 = "7";
+                }
+                else if (dealer1 == 8) {
+                    dealer1 = 8;
+                    dealerface1 = "8";
+                }
+                else if (dealer1 == 9) {
+                    dealer1 = 9;
+                    dealerface1 = "9";
+                }
+                else if (dealer1 == 10) {
+                    dealer1 = 10;
+                    dealerface1 = "10";
+                }
+                dealercount = dealercount + dealer1;
+
+                if (dealer2 == 11) {
+                    dealer2 = 10;
+                    dealerface2 = "J";
+                }
+                else if (dealer2 == 12) {
+                    dealer2 = 10;
+                    dealerface2 = "Q";
+                }
+                else if (dealer2 == 13) {
+                    dealer2 = 10;
+                    dealerface2 = "K";
+                }
+                else if (dealer2 == 14) {
+                    dealerface2 = "A";
+                    fakedealercount = dealercount + falseace;
+                    if (fakedealercount <= 21) {
+                        dealer2 = 11;
+                    }
+                    else {
+                        dealer2 = 1;
+                    }
+
+                }
+                else if (dealer2 == 1) {
+                    dealer2 = 1;
+                    dealerface2 = "1";
+                }
+                else if (dealer2 == 2) {
+                    dealer2 = 2;
+                    dealerface2 = "2";
+                }
+                else if (dealer2 == 3) {
+                    dealer2 = 3;
+                    dealerface2 = "3";
+                }
+                else if (dealer2 == 4) {
+                    dealer2 = 4;
+                    dealerface2 = "4";
+                }
+                else if (dealer2 == 5) {
+                    dealer2 = 5;
+                    dealerface2 = "5";
+                }
+                else if (dealer2 == 6) {
+                    dealer2 = 6;
+                    dealerface2 = "6";
+                }
+                else if (dealer2 == 7) {
+                    dealer2 = 7;
+                    dealerface2 = "7";
+                }
+                else if (dealer2 == 8) {
+                    dealer2 = 8;
+                    dealerface2 = "8";
+                }
+                else if (dealer2 == 9) {
+                    dealer2 = 9;
+                    dealerface2 = "9";
+                }
+                else if (dealer2 == 10) {
+                    dealer2 = 10;
+                    dealerface2 = "10";
+                }
+                dealercount = dealercount + dealer2;
+
+                if (dealer3 == 11) {
+                    dealer3 = 10;
+                }
+                else if (dealer3 == 12) {
+                    dealer3 = 10;
+                }
+                else if (dealer3 == 13) {
+                    dealer3 = 10;
+                }
+                else if (dealer3 == 14) {
+                    fakedealercount = dealercount + falseace;
+                    if (fakedealercount <= 21) {
+                        dealer3 = 11;
+                    }
+                    else {
+                        dealer3 = 1;
+                    }
+
+                }
+                else if (dealer3 == 1) {
+                    dealer3 = 1;
+                    dealerface3 = "1";
+                }
+                else if (dealer3 == 2) {
+                    dealer3 = 2;
+                    dealerface3 = "2";
+                }
+                else if (dealer3 == 3) {
+                    dealer3 = 3;
+                    dealerface3 = "3";
+                }
+                else if (dealer3 == 4) {
+                    dealer3 = 4;
+                    dealerface3 = "4";
+                }
+                else if (dealer3 == 5) {
+                    dealer3 = 5;
+                    dealerface3 = "5";
+                }
+                else if (dealer3 == 6) {
+                    dealer3 = 6;
+                    dealerface3 = "6";
+                }
+                else if (dealer3 == 7) {
+                    dealer3 = 7;
+                    dealerface3 = "7";
+                }
+                else if (dealer3 == 8) {
+                    dealer3 = 8;
+                    dealerface3 = "8";
+                }
+                else if (dealer3 == 9) {
+                    dealer3 = 9;
+                    dealerface3 = "9";
+                }
+                else if (dealer3 == 10) {
+                    dealer3 = 10;
+                    dealerface3 = "10";
+                }
+
+                if (card1 == 11) {
+                    card1 = 10;
+                    cardface1 = "J";
+                }
+                else if (card1 == 12) {
+                    card1 = 10;
+                    cardface1 = "Q";
+                }
+                else if (card1 == 13) {
+                    card1 = 10;
+                    cardface1 = "K";
+                }
+                else if (card1 == 14) {
+                    fakecardcount = cardcount + falseace;
+                    cardface1 = "A";
+                    if (fakecardcount <= 21) {
+                        card1 = 11;
+                    }
+                    else {
+                        card1 = 1;
+                    }
+
+                }
+                else if (card1 == 1) {
+                    card1 = 1;
+                    cardface1 = "1";
+                }
+                else if (card1 == 2) {
+                    card1 = 2;
+                    cardface1 = "2";
+                }
+                else if (card1 == 3) {
+                    card1 = 3;
+                    cardface1 = "3";
+                }
+                else if (card1 == 4) {
+                    card1 = 4;
+                    cardface1 = "4";
+                }
+                else if (card1 == 5) {
+                    card1 = 5;
+                    cardface1 = "5";
+                }
+                else if (card1 == 6) {
+                    card1 = 6;
+                    cardface1 = "6";
+                }
+                else if (card1 == 7) {
+                    card1 = 7;
+                    cardface1 = "7";
+                }
+                else if (card1 == 8) {
+                    card1 = 8;
+                    cardface1 = "8";
+                }
+                else if (card1 == 9) {
+                    card1 = 9;
+                    cardface1 = "9";
+                }
+                else if (card1 == 10) {
+                    card1 = 10;
+                    cardface1 = "10";
+                }
+
+                cardcount = cardcount + card1;
+
+                if (card2 == 11) {
+                    card2 = 10;
+                    cardface2 = "J";
+                }
+                else if (card2 == 12) {
+                    card2 = 10;
+                    cardface2 = "Q";
+                }
+                else if (card2 == 13) {
+                    card2 = 10;
+                    cardface2 = "K";
+                }
+                else if (card2 == 14) {
+                    cardface2 = "A";
+                    fakecardcount = cardcount + falseace;
+                    if (fakecardcount <= 21) {
+                        card2 = 11;
+                    }
+                    else {
+                        card2 = 1;
+                    }
+
+                }
+                else if (card2 == 1) {
+                    card2 = 1;
+                    cardface2 = "1";
+                }
+                else if (card2 == 2) {
+                    card2 = 2;
+                    cardface2 = "2";
+                }
+                else if (card2 == 3) {
+                    card2 = 3;
+                    cardface2 = "3";
+                }
+                else if (card2 == 4) {
+                    card2 = 4;
+                    cardface2 = "4";
+                }
+                else if (card2 == 5) {
+                    card2 = 5;
+                    cardface2 = "5";
+                }
+                else if (card2 == 6) {
+                    card2 = 6;
+                    cardface2 = "6";
+                }
+                else if (card2 == 7) {
+                    card2 = 7;
+                    cardface2 = "7";
+                }
+                else if (card2 == 8) {
+                    card2 = 8;
+                    cardface2 = "8";
+                }
+                else if (card2 == 9) {
+                    card2 = 9;
+                    cardface2 = "9";
+                }
+                else if (card2 == 10) {
+                    card2 = 10;
+                    cardface2 = "10";
+                }
+
+                if (card3 == 11) {
+                    card3 = 10;
+                    cardface3 = "J";
+                }
+                else if (card3 == 12) {
+                    card3 = 10;
+                    cardface3 = "Q";
+                }
+                else if (card3 == 13) {
+                    card3 = 10;
+                    cardface3 = "K";
+                }
+                else if (card3 == 14) {
+                    cardface3 = "A";
+                    fakecardcount = cardcount + falseace;
+                    if (fakecardcount <= 21) {
+                        card3 = 11;
+                    }
+                    else {
+                        card3 = 1;
+                    }
+
+                }
+                else if (card3 == 1) {
+                    card3 = 1;
+                    cardface3 = "1";
+                }
+                else if (card3 == 2) {
+                    card3 = 2;
+                    cardface3 = "2";
+                }
+                else if (card3 == 3) {
+                    card3 = 3;
+                    cardface3 = "3";
+                }
+                else if (card3 == 4) {
+                    card3 = 4;
+                    cardface3 = "4";
+                }
+                else if (card3 == 5) {
+                    card3 = 5;
+                    cardface3 = "5";
+                }
+                else if (card3 == 6) {
+                    card3 = 6;
+                    cardface3 = "6";
+                }
+                else if (card3 == 7) {
+                    card3 = 7;
+                    cardface3 = "7";
+                }
+                else if (card3 == 8) {
+                    card3 = 8;
+                    cardface3 = "8";
+                }
+                else if (card3 == 9) {
+                    card3 = 9;
+                    cardface3 = "9";
+                }
+                else if (card3 == 10) {
+                    card3 = 10;
+                    cardface3 = "10";
+                }
+                cardcount = cardcount + card2;
+                cout << setw(29) << "your cards " << setw(23) << setprecision(2) << fixed << "dealer's hand " << endl;
+                cout << setw(29) << "first card: " << cardface1 << setw(20) << setprecision(2) << fixed << endl;
+                cout << setw(29) << "second card: " << cardface2 << setw(20) << setprecision(2) << fixed << "second card: " << dealerface2 << endl;
+                cout << setw(29) << "card total: " << cardcount << endl;
+                if (cardcount == 21) {
+                    if (cardcount == dealercount) {
+                        cardface3 = "0";
+                        cout << "push no one wins" << endl;
+                        cout << setw(29) << "your cards " << setw(23) << setprecision(2) << fixed << "dealer's hand " << endl;
+                        cout << setw(29) << "first card: " << cardface1 << setw(20) << setprecision(2) << fixed << "first card: " << dealerface1 << endl;
+                        cout << setw(29) << "second card: " << cardface2 << setw(20) << setprecision(2) << fixed << "second card: " << dealerface2 << endl;
+                        cout << setw(29) << "card total: " << cardcount << setw(20) << setprecision(2) << fixed << "card total: " << dealercount << endl;
+                        cout << setw(29) << "balance : " << balance << endl;
+                        string wl = "Push";
+                        fileout << setw(10) << "Card one" << setw(10) << "Card two" << setw(12) << "Card three" << setw(5) << "Bet" << setw(15) << "Dealer total" << setw(5) << "W/L" << setw(10) << "Balance" << endl;
+                        fileout << setw(5) << cardface1 << setw(10) << cardface2 << setw(10) << cardface3 << setw(10) << bet << setw(10) << dealercount << setw(12) << wl << setw(5) << balance << endl;
+
+
+                    }
+                    else if (cardcount != dealercount) {
+                        winnings = bet * 2;
+                        balance = balance + winnings;
+                        cardface3 = "0";
+                        cout << "you win" << endl;
+                        cout << setw(29) << "your cards " << setw(23) << setprecision(2) << fixed << "dealer's hand " << endl;
+                        cout << setw(29) << "first card: " << cardface1 << setw(20) << setprecision(2) << fixed << "first card: " << dealer1 << endl;
+                        cout << setw(29) << "second card: " << cardface2 << setw(20) << setprecision(2) << fixed << "second card: " << dealer2 << endl;
+                        cout << setw(29) << "card total: " << cardcount << setw(20) << setprecision(2) << fixed << "card total: " << dealer2 << endl;
+                        cout << setw(29) << "balance : " << balance << endl;
+                        string wl = "Win";
+                        fileout << setw(10) << "Card one" << setw(10) << "Card two" << setw(12) << "Card three" << setw(5) << "Bet" << setw(15) << "Dealer total" << setw(5) << "W/L" << setw(10) << "Balance" << endl;
+                        fileout << setw(5) << cardface1 << setw(10) << cardface2 << setw(10) << cardface3 << setw(10) << bet << setw(10) << dealercount << setw(12) << wl << setw(5) << balance << endl;
+
+
+                    }
+                }
+                else {
+                    cout << "would you like to hit or stay" << endl;
+                    cin >> hitorstay;
+                    error = 0;
+                    if (hitorstay == "stay" || hitorstay == "hit") {
+                        error = 1;
+                    }
+                    while (error == 0) {
+                        cout << " Invalid option" << endl;
+                        cout << "Enter hit or stay" << endl;
+                        cin >> hitorstay;
+                        if (hitorstay == "stay" || hitorstay == "hit") {
+                            error = 1;
+                        }
+                   }
+                    
+                    if (hitorstay == "hit")
+
+
+
+                    {
+
+                        cout << " this is hit" << endl;
+                        cardcount = cardcount + card3;
+                        if (cardcount == 21) {
+                            if (cardcount == dealercount) {
+                                cout << "push no one wins" << endl;
+                                cout << setw(29) << "your cards " << setw(23) << setprecision(2) << fixed << "dealer's hand " << endl;
+                                cout << setw(29) << "first card: " << cardface1 << setw(20) << setprecision(2) << fixed << "first card: " << dealerface1 << endl;
+                                cout << setw(29) << "second card: " << cardface2 << setw(20) << setprecision(2) << fixed << "second card: " << dealerface2 << endl;
+                                cout << setw(29) << "third card: " << cardface3 << setw(20) << setprecision(2) << fixed << endl;
+                                cout << setw(29) << "card total: " << cardcount << setw(20) << setprecision(2) << fixed << "card total: " << cardcount << endl;
+                                cout << setw(29) << "balance : " << balance << endl;
+                                string wl = "Push";
+                                fileout << setw(10) << "Card one" << setw(10) << "Card two" << setw(12) << "Card three" << setw(5) << "Bet" << setw(15) << "Dealer total" << setw(5) << "W/L" << setw(10) << "Balance" << endl;
+                                fileout << setw(5) << cardface1 << setw(10) << cardface2 << setw(10) << cardface3 << setw(10) << bet << setw(10) << dealercount << setw(12) << wl << setw(5) << balance << endl;
+
+
+                            }
+                            else if (cardcount != dealercount) {
+                                winnings = bet * 2;
+                                balance = balance + winnings;
+                                cout << "you win" << endl;
+                                cout << setw(29) << "your cards " << setw(23) << setprecision(2) << fixed << "dealer's hand " << endl;
+                                cout << setw(29) << "first card: " << cardface1 << setw(20) << setprecision(2) << fixed << "first card: " << dealerface1 << endl;
+                                cout << setw(29) << "second card: " << cardface2 << setw(20) << setprecision(2) << fixed << "second card: " << dealerface2 << endl;
+                                cout << setw(29) << "third card: " << cardface3 << setw(20) << setprecision(2) << fixed << endl;
+                                cout << setw(29) << "card total: " << cardcount << setw(20) << setprecision(2) << fixed << "card total: " << dealercount << endl;
+                                cout << setw(29) << "balance : " << balance << endl;
+                                string wl = "Win";
+                                fileout << setw(10) << "Card one" << setw(10) << "Card two" << setw(12) << "Card three" << setw(5) << "Bet" << setw(15) << "Dealer total" << setw(5) << "W/L" << setw(10) << "Balance" << endl;
+                                fileout << setw(5) << cardface1 << setw(10) << cardface2 << setw(10) << cardface3 << setw(10) << bet << setw(10) << dealercount << setw(12) << wl << setw(5) << balance << endl;
+
+
+                            }
+                        }
+                        else if (cardcount > 21) {
+
+                            cout << "you lose" << endl;
+                            cout << setw(29) << "your cards " << setw(23) << setprecision(2) << fixed << "dealer's hand " << endl;
+                            cout << setw(29) << "first card: " << cardface1 << setw(20) << setprecision(2) << fixed << "first card: " << dealerface1 << endl;
+                            cout << setw(29) << "second card: " << cardface2 << setw(20) << setprecision(2) << fixed << "second card: " << dealerface2 << endl;
+                            cout << setw(29) << "third card: " << cardface3 << setw(20) << setprecision(2) << fixed << endl;
+                            cout << setw(29) << "card total: " << cardcount << setw(20) << setprecision(2) << fixed << "card total: " << dealercount << endl;
+                            cout << setw(29) << "balance : " << balance << endl;
+                            string wl = "Lose";
+                            fileout << setw(10) << "Card one" << setw(10) << "Card two" << setw(12) << "Card three" << setw(5) << "Bet" << setw(15) << "Dealer total" << setw(5) << "W/L" << setw(10) << "Balance" << endl;
+                            fileout << setw(5) << cardface1 << setw(10) << cardface2 << setw(10) << cardface3 << setw(10) << bet << setw(10) << dealercount << setw(12) << wl << setw(5) << balance << endl;
+
+
+                        }
+                        else if (cardcount > dealercount) {
+                            winnings = bet * 2;
+                            balance = balance + winnings;
+                            cout << "you win" << endl;
+                            cout << setw(29) << "your cards " << setw(23) << setprecision(2) << fixed << "dealer's hand " << endl;
+                            cout << setw(29) << "first card: " << cardface1 << setw(20) << setprecision(2) << fixed << "first card: " << dealerface1 << endl;
+                            cout << setw(29) << "second card: " << cardface2 << setw(20) << setprecision(2) << fixed << "second card: " << dealerface2 << endl;
+                            cout << setw(29) << "third card: " << cardface3 << setw(20) << setprecision(2) << fixed << endl;
+                            cout << setw(29) << "card total: " << cardcount << setw(20) << setprecision(2) << fixed << "card total: " << dealercount << endl;
+                            cout << setw(29) << "balance : " << balance << endl;
+                            string wl = "Win";
+                            fileout << setw(10) << "Card one" << setw(10) << "Card two" << setw(12) << "Card three" << setw(5) << "Bet" << setw(15) << "Dealer total" << setw(5) << "W/L" << setw(10) << "Balance" << endl;
+                            fileout << setw(5) << cardface1 << setw(10) << cardface2 << setw(10) << cardface3 << setw(10) << bet << setw(10) << dealercount << setw(12) << wl << setw(5) << balance << endl;
+
+
+                        }
+                        else if (dealercount > cardcount) {
+                            if (dealercount > 21) {
+                                winnings = bet * 2;
+                                balance = balance + winnings;
+                                cout << "you win" << endl;
+                                cout << setw(29) << "your cards " << setw(23) << setprecision(2) << fixed << "dealer's hand " << endl;
+                                cout << setw(29) << "first card: " << cardface1 << setw(20) << setprecision(2) << fixed << "first card: " << dealerface1 << endl;
+                                cout << setw(29) << "second card: " << cardface2 << setw(20) << setprecision(2) << fixed << "second card: " << dealerface2 << endl;
+                                cout << setw(29) << "third card: " << cardface3 << setw(20) << setprecision(2) << fixed << endl;
+                                cout << setw(29) << "card total: " << cardcount << setw(20) << setprecision(2) << fixed << "card total: " << dealercount << endl;
+                                cout << setw(29) << "balance : " << balance << endl;
+                                string wl = "Win";
+                                fileout << setw(10) << "Card one" << setw(10) << "Card two" << setw(12) << "Card three" << setw(5) << "Bet" << setw(15) << "Dealer total" << setw(5) << "W/L" << setw(10) << "Balance" << endl;
+                                fileout << setw(5) << cardface1 << setw(10) << cardface2 << setw(10) << cardface3 << setw(10) << bet << setw(10) << dealercount << setw(12) << wl << setw(5) << balance << endl;
+
+
+                            }
+                            else {
+
+                                cout << "you lose " << endl;
+                                cout << setw(29) << "your cards " << setw(23) << setprecision(2) << fixed << "dealer's hand " << endl;
+                                cout << setw(29) << "first card: " << cardface1 << setw(20) << setprecision(2) << fixed << "first card: " << dealerface1 << endl;
+                                cout << setw(29) << "second card: " << cardface2 << setw(20) << setprecision(2) << fixed << "second card: " << dealerface2 << endl;
+                                cout << setw(29) << "third card: " << cardface3 << setw(20) << setprecision(2) << fixed << endl;
+                                cout << setw(29) << "card total: " << cardcount << setw(20) << setprecision(2) << fixed << "card total: " << dealercount << endl;
+                                cout << setw(29) << "balance : " << balance << endl;
+                                string wl = "Lose";
+                                fileout << setw(10) << "Card one" << setw(10) << "Card two" << setw(12) << "Card three" << setw(5) << "Bet" << setw(15) << "Dealer total" << setw(5) << "W/L" << setw(10) << "Balance" << endl;
+                                fileout << setw(5) << cardface1 << setw(10) << cardface2 << setw(10) << cardface3 << setw(10) << bet << setw(10) << dealercount << setw(12) << wl << setw(5) << balance << endl;
+
+
+                            }
+                        }
+
+
+                    }
+
+
+
+                    else if (hitorstay == "stay")
+
+
+
+                    {
+
+                        if (dealercount >= 17) {
+                            if (cardcount > dealercount) {
+                                cardface3 = "0";
+                                winnings = bet * 2;
+                                balance = balance + winnings;
+                                cout << "you win" << endl;
+                                cout << setw(29) << "your cards " << setw(23) << setprecision(2) << fixed << "dealer's hand " << endl;
+                                cout << setw(29) << "first card: " << cardface1 << setw(20) << setprecision(2) << fixed << "first card: " << dealerface1 << endl;
+                                cout << setw(29) << "second card: " << cardface2 << setw(20) << setprecision(2) << fixed << "second card: " << dealerface2 << endl;
+                                cout << setw(29) << "card total: " << cardcount << setw(20) << setprecision(2) << fixed << "card total: " << dealercount << endl;
+                                cout << setw(29) << "balance : " << balance << endl;
+                                string wl = "Win";
+                                fileout << setw(10) << "Card one" << setw(10) << "Card two" << setw(12) << "Card three" << setw(5) << "Bet" << setw(15) << "Dealer total" << setw(5) << "W/L" << setw(10) << "Balance" << endl;
+                                fileout << setw(5) << cardface1 << setw(10) << cardface2 << setw(10) << cardface3 << setw(10) << bet << setw(10) << dealercount << setw(12) << wl << setw(5) << balance << endl;
+
+
+                            }
+                            else if (dealercount > 21) {
+                                cardface3 = "0";
+                                winnings = bet * 2;
+                                balance = balance + winnings;
+                                cout << "you win" << endl;
+                                cout << setw(29) << "your cards " << setw(23) << setprecision(2) << fixed << "dealer's hand " << endl;
+                                cout << setw(29) << "first card: " << cardface1 << setw(20) << setprecision(2) << fixed << "first card: " << dealerface1 << endl;
+                                cout << setw(29) << "second card: " << cardface2 << setw(20) << setprecision(2) << fixed << "second card: " << dealerface2 << endl;
+                                cout << setw(29) << "card total: " << cardcount << setw(20) << setprecision(2) << fixed << "card total: " << dealercount << endl;
+                                cout << setw(29) << "balance : " << balance << endl;
+                                string wl = "Win";
+                                fileout << setw(10) << "Card one" << setw(10) << "Card two" << setw(12) << "Card three" << setw(5) << "Bet" << setw(15) << "Dealer total" << setw(5) << "W/L" << setw(10) << "Balance" << endl;
+                                fileout << setw(5) << cardface1 << setw(10) << cardface2 << setw(10) << cardface3 << setw(10) << bet << setw(10) << dealercount << setw(12) << wl << setw(5) << balance << endl;
+
+
+                            }
+                            else if (dealercount = cardcount) {
+                                cardface3 = "0";
+                                cout << "push no one wins" << endl;
+                                cout << setw(29) << "your cards " << setw(23) << setprecision(2) << fixed << "dealer's hand " << endl;
+                                cout << setw(29) << "first card: " << cardface1 << setw(20) << setprecision(2) << fixed << "first card: " << dealerface1 << endl;
+                                cout << setw(29) << "second card: " << cardface2 << setw(20) << setprecision(2) << fixed << "second card: " << dealerface2 << endl;
+                                cout << setw(29) << "card total: " << cardcount << setw(20) << setprecision(2) << fixed << "card total: " << dealercount << endl;
+                                cout << setw(29) << "balance : " << balance << endl;
+                                string wl = "Push";
+                                fileout << setw(10) << "Card one" << setw(10) << "Card two" << setw(12) << "Card three" << setw(5) << "Bet" << setw(15) << "Dealer total" << setw(5) << "W/L" << setw(10) << "Balance" << endl;
+                                fileout << setw(5) << cardface1 << setw(10) << cardface2 << setw(10) << cardface3 << setw(10) << bet << setw(10) << dealercount << setw(12) << wl << setw(5) << balance << endl;
+
+
+                            }
+                            else if (dealercount > cardcount) {
+
+                                cardface3 = "0";
+                                cout << "you lose" << endl;
+                                cout << setw(29) << "your cards " << setw(23) << setprecision(2) << fixed << "dealer's hand " << endl;
+                                cout << setw(29) << "first card: " << cardface1 << setw(20) << setprecision(2) << fixed << "first card: " << dealerface1 << endl;
+                                cout << setw(29) << "second card: " << cardface2 << setw(20) << setprecision(2) << fixed << "second card: " << dealerface2 << endl;
+                                cout << setw(29) << "card total: " << cardcount << setw(20) << setprecision(2) << fixed << "card total: " << dealercount << endl;
+                                cout << setw(29) << "balance : " << balance << endl;
+                                string wl = "Lose";
+                                fileout << setw(10) << "Card one" << setw(10) << "Card two" << setw(12) << "Card three" << setw(5) << "Bet" << setw(15) << "Dealer total" << setw(5) << "W/L" << setw(10) << "Balance" << endl;
+                                fileout << setw(5) << cardface1 << setw(10) << cardface2 << setw(10) << cardface3 << setw(10) << bet << setw(10) << dealercount << setw(12) << wl << setw(5) << balance << endl;
+
+
+                            }
+                        }
+                        else if (dealercount < 17) {
+                            dealercount = dealercount + dealer3;
+                            if (21 < dealercount) {
+                                cardface3 = "0";
+                                winnings = bet * 2;
+                                balance = balance + winnings;
+                                cout << "you win" << endl;
+                                cout << setw(29) << "your cards " << setw(23) << setprecision(2) << fixed << "dealer's hand " << endl;
+                                cout << setw(29) << "first card: " << cardface1 << setw(20) << setprecision(2) << fixed << "first card: " << dealerface1 << endl;
+                                cout << setw(29) << "second card: " << cardface2 << setw(20) << setprecision(2) << fixed << "second card: " << dealerface2 << endl;
+                                cout << setw(29) << setw(50) << setprecision(2) << fixed << "Third card: " << dealerface3 << endl;
+                                cout << setw(29) << "card total: " << cardcount << setw(20) << setprecision(2) << fixed << "card total: " << dealercount << endl;
+                                cout << setw(29) << "balance : " << balance << endl;
+                                string wl = "Win";
+                                fileout << setw(10) << "Card one" << setw(10) << "Card two" << setw(12) << "Card three" << setw(5) << "Bet" << setw(15) << "Dealer total" << setw(5) << "W/L" << setw(10) << "Balance" << endl;
+                                fileout << setw(5) << cardface1 << setw(10) << cardface2 << setw(10) << cardface3 << setw(10) << bet << setw(10) << dealercount << setw(12) << wl << setw(5) << balance << endl;
+
+                              
+                            }
+                            else if (cardcount > dealercount) {
+                                winnings = bet * 2;
+                                balance = balance + winnings;
+                                cout << "you win" << endl;
+                                cout << setw(29) << "your cards " << setw(23) << setprecision(2) << fixed << "dealer's hand " << endl;
+                                cout << setw(29) << "first card: " << cardface1 << setw(20) << setprecision(2) << fixed << "first card: " << dealerface1 << endl;
+                                cout << setw(29) << "second card: " << cardface2 << setw(20) << setprecision(2) << fixed << "second card: " << dealerface2 << endl;
+                                cout << setw(29) << setw(50) << setprecision(2) << fixed << "Third card: " << dealerface3 << endl;
+                                cout << setw(29) << "card total: " << cardcount << setw(20) << setprecision(2) << fixed << "card total: " << dealercount << endl;
+                                cout << setw(29) << "balance : " << balance << endl;
+                                string wl = "Win";
+                                fileout << setw(10) << "Card one" << setw(10) << "Card two" << setw(12) << "Card three" << setw(5) << "Bet" << setw(15) << "Dealer total" << setw(5) << "W/L" << setw(10) << "Balance" << endl;
+                                fileout << setw(5) << cardface1 << setw(10) << cardface2 << setw(10) << cardface3 << setw(10) << bet << setw(10) << dealercount << setw(12) << wl << setw(5) << balance << endl;
+
+                               
+                            }
+                            else if (dealercount > cardcount) {
+                                cardface3 = "0";
+
+                                cout << "you lose" << endl;
+                                cout << setw(29) << "your cards " << setw(23) << setprecision(2) << fixed << "dealer's hand " << endl;
+                                cout << setw(29) << "first card: " << cardface1 << setw(20) << setprecision(2) << fixed << "first card: " << dealerface1 << endl;
+                                cout << setw(29) << "second card: " << cardface2 << setw(20) << setprecision(2) << fixed << "second card: " << dealerface2 << endl;
+                                cout << setw(29) << setw(50) << setprecision(2) << fixed << "Third card: " << dealerface3 << endl;
+                                cout << setw(29) << "card total: " << cardcount << setw(20) << setprecision(2) << fixed << "card total: " << dealercount << endl;
+                                cout << setw(29) << "balance : " << balance << endl;
+                                string wl = "Lose";
+                                fileout << setw(10) << "Card one" << setw(10) << "Card two" << setw(12) << "Card three" << setw(5) << "Bet" << setw(15) << "Dealer total" << setw(5) << "W/L" << setw(10) << "Balance" << endl;
+                                fileout << setw(5) << cardface1 << setw(10) << cardface2 << setw(10) << cardface3 << setw(10) << bet << setw(10) << dealercount << setw(12) << wl << setw(5) << balance << endl;
+
+
+                            }
+                            else if (dealercount = cardcount) {
+                                cout << "push no one wins" << endl;
+                                cout << setw(29) << "your cards " << setw(23) << setprecision(2) << fixed << "dealer's hand " << endl;
+                                cout << setw(29) << "first card: " << cardface1 << setw(20) << setprecision(2) << fixed << "first card: " << dealerface1 << endl;
+                                cout << setw(29) << "second card: " << cardface2 << setw(20) << setprecision(2) << fixed << "second card: " << dealerface2 << endl;
+                                cout << setw(29) << setw(50) << setprecision(2) << fixed << "Third card: " << dealerface3 << endl;
+                                cout << setw(29) << "card total: " << cardcount << setw(20) << setprecision(2) << fixed << "card total: " << dealercount << endl;
+                                cout << setw(29) << "balance : " << balance << endl;
+                                string wl = "Push";
+                                fileout << setw(10) << "Card one" << setw(10) << "Card two" << setw(12) << "Card three" << setw(5) << "Bet" << setw(15) << "Dealer total" << setw(5) << "W/L" << setw(10) << "Balance" << endl;
+                                fileout << setw(5) << cardface1 << setw(10) << cardface2 << setw(10) << cardface3 << setw(10) << bet << setw(10) << dealercount << setw(12) << wl << setw(5) << balance << endl;
+
+
+                            }
+
+                        }
+                    }
+                }
+
+
+
+
+
+
+
+
+                cout << "wanna play again Yes or No" << endl;
+                cin >> again;
+                error = 0;
+                if (again == "no" || again == "yes") {
+                    error = 1;
+                }
+                while (error == 0) {
+                    cout << " Invalid option" << endl;
+                    cout << "Enter yes or no" << endl;
+                    cin >> again;
+                    if (again == "yes" || again == "no") {
+                        error = 1;
+                    }
+                }
+
+                cardcount = 0;
+                dealercount = 0;
+                fileout.close();
+            } while (again == "yes");
+            
+        }
+
+        else if (choice == 2)
+
+
+
+        {
+
+
+            fin.open("RobertsHistory.txt");
+            
+
+
+            if (fin.fail())
+
+
+
+            {
+
+
+
+                cout << "File cannot be opened.\n";
+                cout << " Would you like to see the menu again? Yes or No" << endl;
+                cin >> playgame;
+
+
+            }
+
+
+
+            else
+
+
+
+            {
+
+
+
+                while (!fin.eof())
+
+
+
+                {
+
+
+
+                    getline(fin, history);
+
+
+
+                    cout << history << endl;
+
+
+
+                }
+
+
+
+            }
+
+
+
+            fin.close();
+
+
+
+        }
+
+
+
+        else if (choice == 3)
+
+
+
+        {
+
+
+
+            cout << "Thank you for playing.\n";
+            cout << "your balance $" << balance << endl;
+            playgame = "no";
+            fileout.close();
+
+
+        }
+
+
+
+        else
+
+
+
+        {
+
+
+
+            cout << "Not a valid choice.\n";
+            playgame = "yes";
+
+
+        }
+
+    }
+    return 0;
+}
